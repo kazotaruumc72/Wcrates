@@ -64,6 +64,11 @@ public class MenuClickListener implements Listener {
                     player.sendMessage("§7Key selector - Coming soon!");
                     break;
 
+                case 22:
+                    // Create crate button
+                    handleCreateCrate(player);
+                    break;
+
                 case 23:
                     // Close menu
                     player.closeInventory();
@@ -95,8 +100,14 @@ public class MenuClickListener implements Listener {
      * Handle crate ID selection (slot 14)
      */
     private void handleCrateIdSelection(Player player) {
-        player.sendMessage("§bCrate ID selection - Enter ID in chat");
-        player.sendMessage("§7This feature allows you to set the crate identifier");
+        CrateMenuGUI.CrateConfig config = CrateMenuGUI.getPlayerConfig(player.getUniqueId());
+
+        // For now, use the example crate ID
+        // In a full implementation, this could open a selection menu
+        config.setCrateId("example_crate");
+
+        player.sendMessage("§bCrate ID set to: example_crate");
+        player.sendMessage("§7This crate will use the configuration from crates/example_crate.yml");
     }
 
     /**
@@ -117,5 +128,31 @@ public class MenuClickListener implements Listener {
 
         player.sendTitle(title, subtitle, 10, 70, 20);
         player.sendMessage(plugin.getLanguageManager().getMessage("block_selection.activated"));
+    }
+
+    /**
+     * Handle create crate button (slot 22)
+     */
+    private void handleCreateCrate(Player player) {
+        CrateMenuGUI.CrateConfig config = CrateMenuGUI.getPlayerConfig(player.getUniqueId());
+
+        String crateId = config.getCrateId();
+        String crateName = config.getCrateName();
+        org.bukkit.Material blockType = config.getBlockType();
+
+        // Create the crate files
+        boolean success = plugin.getCrateFileManager().createCrateFiles(crateId, crateName, blockType);
+
+        if (success) {
+            player.sendMessage(plugin.getLanguageManager().getMessage("crate.created_success"));
+            player.sendMessage("§7Created files for crate: §b" + crateId);
+            player.sendMessage("§7- crates/" + crateId + ".yml");
+            player.sendMessage("§7- placeholders/" + crateId + ".yml");
+
+            // Reload crates to load the newly created crate
+            plugin.getCrateManager().reload();
+        } else {
+            player.sendMessage(plugin.getLanguageManager().getMessage("crate.created_error"));
+        }
     }
 }

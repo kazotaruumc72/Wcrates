@@ -1,0 +1,73 @@
+# Example crate configuration
+# This crate uses placeholders to determine rewards
+
+crate:
+  # The ID of this crate (must be unique)
+  id: "example_crate"
+
+  # Display name of the crate
+  name: "&6&lExample Crate"
+
+  # Block type for this crate
+  block: "CHEST"
+
+  # Animation settings
+  animation:
+    # Duration in ticks (20 ticks = 1 second)
+    duration: 100
+    # Speed of scrolling (ticks between updates)
+    speed: 2
+    # Min and max values for scrolling
+    min: 1
+    max: 200
+
+# Rewards configuration with placeholder-based ranges
+rewards:
+  placeholders:
+    1:
+      between: '%wcrates_example_crate_1-50%'
+      name: "&7&lCommon Reward"
+      commands:
+        - "give %player% iron_ingot 10"
+      messages:
+        - "&7You won the Common Reward!"
+        - "&7You received 10 iron ingots!"
+
+    2:
+      between: '%wcrates_example_crate_51-100%'
+      name: "&e&lUncommon Reward"
+      commands:
+        - "give %player% gold_ingot 5"
+        - "give %player% iron_ingot 15"
+      messages:
+        - "&eYou won the Uncommon Reward!"
+        - "&7You received 5 gold ingots and 15 iron ingots!"
+
+    3:
+      between: '%wcrates_example_crate_101-139%'
+      name: "&b&lRare Reward I"
+      commands:
+        - "give %player% diamond 3"
+      messages:
+        - "&bYou won Rare Reward I!"
+        - "&7You received 3 diamonds!"
+
+    4:
+      between: '%wcrates_example_crate_140-168%'
+      name: "&a&lRare Reward"
+      commands:
+        - "give %player% diamond 5"
+        - "give %player% emerald 3"
+      messages:
+        - "&aYou won the Rare Reward!"
+        - "&7You received 5 diamonds and 3 emeralds!"
+
+    5:
+      between: '%wcrates_example_crate_169-200%'
+      name: "&5&lEpic Reward"
+      commands:
+        - "give %player% netherite_ingot 1"
+        - "give %player% diamond 10"
+      messages:
+        - "&5You won the Epic Reward!"
+        - "&7You received 1 netherite ingot and 10 diamonds!"

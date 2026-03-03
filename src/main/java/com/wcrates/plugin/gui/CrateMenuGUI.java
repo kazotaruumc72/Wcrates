@@ -71,6 +71,11 @@ public class CrateMenuGUI {
             lang.getMessage("menu.key_selector.name"),
             lang.getMessageList("menu.key_selector.lore")));
 
+        // Slot 22: Create crate button
+        inventory.setItem(22, createMenuItem(Material.EMERALD,
+            lang.getMessage("menu.create_crate.name"),
+            lang.getMessageList("menu.create_crate.lore")));
+
         // Slot 23: Close button
         inventory.setItem(23, createMenuItem(Material.BARRIER,
             lang.getMessage("menu.close.name"),

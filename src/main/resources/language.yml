@@ -38,6 +38,15 @@ menu:
     lore:
       - "&7Coming soon..."
 
+  # Slot 22 - Create crate button
+  create_crate:
+    name: "&a&lCreate Crate"
+    lore:
+      - "&7Click to create the crate files"
+      - "&7This will generate both:"
+      - "&7- Crate config in crates/ folder"
+      - "&7- Placeholder file in placeholders/ folder"
+
   # Slot 23 - Close button
   close:
     name: "&cClose Menu"
@@ -56,7 +65,16 @@ block_selection:
   subtitle: "&7Right/Left click to select"
   activated: "&aBlock placement mode activated!"
   deactivated: "&cBlock placement mode deactivated"
-  success: "&aBlock transformed successfully!"
+  success: "&aBlock transformed successfully into a crate!"
+
+# Crate interaction messages
+crate:
+  opening: "&6&lOpening crate... Good luck!"
+  no_permission: "&cYou don't have permission to use this crate!"
+  invalid: "&cThis crate is not configured properly!"
+  created_success: "&aSuccessfully created crate files!"
+  created_error: "&cFailed to create crate files. Check console for details."
+  already_exists: "&cCrate files already exist!"
 
 # Messages
 messages:

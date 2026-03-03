@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 /**
  * Listener for block selection (right/left click) when in placement mode
@@ -43,6 +44,10 @@ public class BlockSelectionListener implements Listener {
             // Transform the block to the configured type
             Material selectedType = config.getBlockType();
             clickedBlock.setType(selectedType);
+
+            // Set metadata to mark this as a crate block
+            String crateId = config.getCrateId();
+            clickedBlock.setMetadata("wcrates_id", new FixedMetadataValue(plugin, crateId));
 
             // Send success message
             player.sendMessage(plugin.getLanguageManager().getMessage("block_selection.success"));
