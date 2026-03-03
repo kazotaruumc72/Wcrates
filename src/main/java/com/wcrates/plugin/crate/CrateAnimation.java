@@ -1,6 +1,8 @@
 package com.wcrates.plugin.crate;
 
 import com.wcrates.plugin.WcratesPlugin;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -76,9 +78,9 @@ public class CrateAnimation {
         String displayText = ChatColor.translateAlternateColorCodes('&',
                 "&6&lCrate Opening... &e&l" + value);
 
-        // Use action bar (newer Spigot versions)
+        // Use action bar (Spigot 1.16.5+ uses BungeeCord chat API)
         try {
-            player.sendActionBar(displayText);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(displayText));
         } catch (NoSuchMethodError e) {
             // Fallback for older versions - use title with subtitle
             player.sendTitle("", displayText, 0, 10, 0);
