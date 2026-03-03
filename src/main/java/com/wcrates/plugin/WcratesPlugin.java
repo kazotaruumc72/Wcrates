@@ -4,6 +4,7 @@ import com.wcrates.plugin.command.WcratesCommand;
 import com.wcrates.plugin.crate.CrateManager;
 import com.wcrates.plugin.crate.CrateFileManager;
 import com.wcrates.plugin.listener.BlockSelectionListener;
+import com.wcrates.plugin.listener.BlockSelectorListener;
 import com.wcrates.plugin.listener.MenuClickListener;
 import com.wcrates.plugin.listener.CrateInteractListener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,6 +38,7 @@ public class WcratesPlugin extends JavaPlugin {
         // Register event listeners
         getServer().getPluginManager().registerEvents(new MenuClickListener(this), this);
         getServer().getPluginManager().registerEvents(new BlockSelectionListener(this), this);
+        getServer().getPluginManager().registerEvents(new BlockSelectorListener(this), this);
         getServer().getPluginManager().registerEvents(new CrateInteractListener(this), this);
 
         getLogger().info("Wcrates plugin has been enabled!");
