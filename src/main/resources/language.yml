@@ -56,7 +56,13 @@ block_selection:
   subtitle: "&7Right/Left click to select"
   activated: "&aBlock placement mode activated!"
   deactivated: "&cBlock placement mode deactivated"
-  success: "&aBlock transformed successfully!"
+  success: "&aBlock transformed successfully into a crate!"
+
+# Crate interaction messages
+crate:
+  opening: "&6&lOpening crate... Good luck!"
+  no_permission: "&cYou don't have permission to use this crate!"
+  invalid: "&cThis crate is not configured properly!"
 
 # Messages
 messages:

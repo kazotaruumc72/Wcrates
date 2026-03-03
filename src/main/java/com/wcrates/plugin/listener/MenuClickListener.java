@@ -95,8 +95,14 @@ public class MenuClickListener implements Listener {
      * Handle crate ID selection (slot 14)
      */
     private void handleCrateIdSelection(Player player) {
-        player.sendMessage("§bCrate ID selection - Enter ID in chat");
-        player.sendMessage("§7This feature allows you to set the crate identifier");
+        CrateMenuGUI.CrateConfig config = CrateMenuGUI.getPlayerConfig(player.getUniqueId());
+
+        // For now, use the example crate ID
+        // In a full implementation, this could open a selection menu
+        config.setCrateId("example_crate");
+
+        player.sendMessage("§bCrate ID set to: example_crate");
+        player.sendMessage("§7This crate will use the configuration from crates/example_crate.yml");
     }
 
     /**

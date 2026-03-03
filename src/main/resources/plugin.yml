@@ -3,7 +3,7 @@ version: 1.0.0
 main: com.wcrates.plugin.WcratesPlugin
 api-version: 1.16
 author: Kazotaruu
-description: A simple crate system plugin
+description: A simple crate system plugin with placeholder-based rewards
 
 commands:
   wcrates:
