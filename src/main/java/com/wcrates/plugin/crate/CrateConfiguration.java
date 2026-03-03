@@ -7,6 +7,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a crate configuration loaded from a YAML file
@@ -37,20 +40,23 @@ public class CrateConfiguration {
         }
         this.block = tempBlock;
 
-        this.minValue = config.getInt("crate.placeholders.min", 1);
-        this.maxValue = config.getInt("crate.placeholders.max", 200);
-        this.animationDuration = config.getInt("crate.placeholders.animation.duration", 100);
-        this.animationSpeed = config.getInt("crate.placeholders.animation.speed", 2);
+        // Animation settings are now under crate.animation
+        this.minValue = config.getInt("crate.animation.min", 1);
+        this.maxValue = config.getInt("crate.animation.max", 200);
+        this.animationDuration = config.getInt("crate.animation.duration", 100);
+        this.animationSpeed = config.getInt("crate.animation.speed", 2);
 
         this.rewards = new ArrayList<>();
 
-        if (config.contains("crate.rewards")) {
-            List<?> rewardsList = config.getList("crate.rewards");
-            if (rewardsList != null) {
-                for (Object obj : rewardsList) {
-                    if (obj instanceof ConfigurationSection) {
-                        ConfigurationSection section = (ConfigurationSection) obj;
-                        rewards.add(new RewardRange(section));
+        // Parse the new rewards.placeholders structure
+        if (config.contains("rewards.placeholders")) {
+            ConfigurationSection placeholdersSection = config.getConfigurationSection("rewards.placeholders");
+            if (placeholdersSection != null) {
+                Set<String> keys = placeholdersSection.getKeys(false);
+                for (String key : keys) {
+                    ConfigurationSection rewardSection = placeholdersSection.getConfigurationSection(key);
+                    if (rewardSection != null) {
+                        rewards.add(new RewardRange(rewardSection));
                     }
                 }
             }
@@ -108,15 +114,38 @@ public class CrateConfiguration {
         private final int min;
         private final int max;
         private final String name;
+        private final String placeholder;
         private final List<String> commands;
         private final List<String> messages;
 
         public RewardRange(ConfigurationSection section) {
-            this.min = section.getInt("range.min", 0);
-            this.max = section.getInt("range.max", 100);
+            this.placeholder = section.getString("between", "");
             this.name = section.getString("name", "&7Reward");
             this.commands = section.getStringList("commands");
             this.messages = section.getStringList("messages");
+
+            // Parse the 'between' placeholder to extract min and max values
+            // Format: %wcrates_crate_MIN-MAX%
+            int tempMin = 0;
+            int tempMax = 100;
+
+            if (!placeholder.isEmpty()) {
+                // Pattern to match: %wcrates_crate_140-168%
+                Pattern pattern = Pattern.compile("%wcrates_crate_(\\d+)-(\\d+)%");
+                Matcher matcher = pattern.matcher(placeholder);
+
+                if (matcher.find()) {
+                    try {
+                        tempMin = Integer.parseInt(matcher.group(1));
+                        tempMax = Integer.parseInt(matcher.group(2));
+                    } catch (NumberFormatException e) {
+                        // Use defaults if parsing fails
+                    }
+                }
+            }
+
+            this.min = tempMin;
+            this.max = tempMax;
         }
 
         public boolean isInRange(int value) {
@@ -133,6 +162,10 @@ public class CrateConfiguration {
 
         public String getName() {
             return name;
+        }
+
+        public String getPlaceholder() {
+            return placeholder;
         }
 
         public List<String> getCommands() {

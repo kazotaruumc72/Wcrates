@@ -55,17 +55,16 @@ crate:
   name: "&6&lExample Crate"
   block: "CHEST"
 
-  placeholders:
-    min: 1
-    max: 200
-    animation:
-      duration: 100  # Duration in ticks (20 ticks = 1 second)
-      speed: 2       # Ticks between updates
+  animation:
+    duration: 100  # Duration in ticks (20 ticks = 1 second)
+    speed: 2       # Ticks between updates
+    min: 1         # Minimum value for scrolling
+    max: 200       # Maximum value for scrolling
 
-  rewards:
-    - range:
-        min: 140
-        max: 168
+rewards:
+  placeholders:
+    1:
+      between: '%wcrates_crate_140-168%'
       name: "&a&lRare Reward"
       commands:
         - "give %player% diamond 5"
@@ -79,10 +78,11 @@ crate:
 - `id`: Unique identifier for the crate
 - `name`: Display name with color codes
 - `block`: Material type for the crate block
-- `placeholders.min/max`: Range of values to scroll through
-- `placeholders.animation.duration`: How long the animation runs (in ticks)
-- `placeholders.animation.speed`: Update interval (in ticks)
-- `rewards`: List of reward ranges with commands and messages
+- `animation.min/max`: Range of values to scroll through
+- `animation.duration`: How long the animation runs (in ticks)
+- `animation.speed`: Update interval (in ticks)
+- `rewards.placeholders`: Numbered entries with placeholder-based ranges
+- `between`: Placeholder format `%wcrates_crate_MIN-MAX%` defining the value range
 
 ## Usage
 

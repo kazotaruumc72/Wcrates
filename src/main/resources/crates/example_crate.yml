@@ -11,38 +11,21 @@ crate:
   # Block type for this crate
   block: "CHEST"
 
-  # Placeholder configuration
-  placeholders:
-    # Base placeholder: %wcrates_crate_value%
-    # This placeholder will scroll from min to max
+  # Animation settings
+  animation:
+    # Duration in ticks (20 ticks = 1 second)
+    duration: 100
+    # Speed of scrolling (ticks between updates)
+    speed: 2
+    # Min and max values for scrolling
     min: 1
     max: 200
 
-    # Animation settings
-    animation:
-      # Duration in ticks (20 ticks = 1 second)
-      duration: 100
-      # Speed of scrolling (ticks between updates)
-      speed: 2
-
-  # Rewards based on placeholder value ranges
-  rewards:
-    # Reward for values between 140 and 168
-    - range:
-        min: 140
-        max: 168
-      name: "&a&lRare Reward"
-      commands:
-        - "give %player% diamond 5"
-        - "give %player% emerald 3"
-      messages:
-        - "&aYou won the Rare Reward!"
-        - "&7You received 5 diamonds and 3 emeralds!"
-
-    # Reward for values between 1 and 50
-    - range:
-        min: 1
-        max: 50
+# Rewards configuration with placeholder-based ranges
+rewards:
+  placeholders:
+    1:
+      between: '%wcrates_crate_1-50%'
       name: "&7&lCommon Reward"
       commands:
         - "give %player% iron_ingot 10"
@@ -50,10 +33,8 @@ crate:
         - "&7You won the Common Reward!"
         - "&7You received 10 iron ingots!"
 
-    # Reward for values between 51 and 100
-    - range:
-        min: 51
-        max: 100
+    2:
+      between: '%wcrates_crate_51-100%'
       name: "&e&lUncommon Reward"
       commands:
         - "give %player% gold_ingot 5"
@@ -62,10 +43,8 @@ crate:
         - "&eYou won the Uncommon Reward!"
         - "&7You received 5 gold ingots and 15 iron ingots!"
 
-    # Reward for values between 101 and 139
-    - range:
-        min: 101
-        max: 139
+    3:
+      between: '%wcrates_crate_101-139%'
       name: "&b&lRare Reward I"
       commands:
         - "give %player% diamond 3"
@@ -73,10 +52,18 @@ crate:
         - "&bYou won Rare Reward I!"
         - "&7You received 3 diamonds!"
 
-    # Reward for values between 169 and 200
-    - range:
-        min: 169
-        max: 200
+    4:
+      between: '%wcrates_crate_140-168%'
+      name: "&a&lRare Reward"
+      commands:
+        - "give %player% diamond 5"
+        - "give %player% emerald 3"
+      messages:
+        - "&aYou won the Rare Reward!"
+        - "&7You received 5 diamonds and 3 emeralds!"
+
+    5:
+      between: '%wcrates_crate_169-200%'
       name: "&5&lEpic Reward"
       commands:
         - "give %player% netherite_ingot 1"
