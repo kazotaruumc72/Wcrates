@@ -115,6 +115,7 @@ public class CrateConfiguration {
         private final int max;
         private final String name;
         private final String placeholder;
+        private final String crateId;
         private final List<String> commands;
         private final List<String> messages;
 
@@ -124,26 +125,29 @@ public class CrateConfiguration {
             this.commands = section.getStringList("commands");
             this.messages = section.getStringList("messages");
 
-            // Parse the 'between' placeholder to extract min and max values
-            // Format: %wcrates_crate_MIN-MAX%
+            // Parse the 'between' placeholder to extract crate ID, min and max values
+            // Format: %wcrates_CRATEID_MIN-MAX%
             int tempMin = 0;
             int tempMax = 100;
+            String tempCrateId = "";
 
             if (!placeholder.isEmpty()) {
-                // Pattern to match: %wcrates_crate_140-168%
-                Pattern pattern = Pattern.compile("%wcrates_crate_(\\d+)-(\\d+)%");
+                // Pattern to match: %wcrates_example_crate_140-168%
+                Pattern pattern = Pattern.compile("%wcrates_([a-zA-Z0-9_]+)_(\\d+)-(\\d+)%");
                 Matcher matcher = pattern.matcher(placeholder);
 
                 if (matcher.find()) {
                     try {
-                        tempMin = Integer.parseInt(matcher.group(1));
-                        tempMax = Integer.parseInt(matcher.group(2));
+                        tempCrateId = matcher.group(1);
+                        tempMin = Integer.parseInt(matcher.group(2));
+                        tempMax = Integer.parseInt(matcher.group(3));
                     } catch (NumberFormatException e) {
                         // Use defaults if parsing fails
                     }
                 }
             }
 
+            this.crateId = tempCrateId;
             this.min = tempMin;
             this.max = tempMax;
         }
@@ -166,6 +170,10 @@ public class CrateConfiguration {
 
         public String getPlaceholder() {
             return placeholder;
+        }
+
+        public String getCrateId() {
+            return crateId;
         }
 
         public List<String> getCommands() {

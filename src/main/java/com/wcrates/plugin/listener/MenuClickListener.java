@@ -64,6 +64,11 @@ public class MenuClickListener implements Listener {
                     player.sendMessage("§7Key selector - Coming soon!");
                     break;
 
+                case 22:
+                    // Create crate button
+                    handleCreateCrate(player);
+                    break;
+
                 case 23:
                     // Close menu
                     player.closeInventory();
@@ -123,5 +128,31 @@ public class MenuClickListener implements Listener {
 
         player.sendTitle(title, subtitle, 10, 70, 20);
         player.sendMessage(plugin.getLanguageManager().getMessage("block_selection.activated"));
+    }
+
+    /**
+     * Handle create crate button (slot 22)
+     */
+    private void handleCreateCrate(Player player) {
+        CrateMenuGUI.CrateConfig config = CrateMenuGUI.getPlayerConfig(player.getUniqueId());
+
+        String crateId = config.getCrateId();
+        String crateName = config.getCrateName();
+        org.bukkit.Material blockType = config.getBlockType();
+
+        // Create the crate files
+        boolean success = plugin.getCrateFileManager().createCrateFiles(crateId, crateName, blockType);
+
+        if (success) {
+            player.sendMessage(plugin.getLanguageManager().getMessage("crate.created_success"));
+            player.sendMessage("§7Created files for crate: §b" + crateId);
+            player.sendMessage("§7- crates/" + crateId + ".yml");
+            player.sendMessage("§7- placeholders/" + crateId + ".yml");
+
+            // Reload crates to load the newly created crate
+            plugin.getCrateManager().reload();
+        } else {
+            player.sendMessage(plugin.getLanguageManager().getMessage("crate.created_error"));
+        }
     }
 }

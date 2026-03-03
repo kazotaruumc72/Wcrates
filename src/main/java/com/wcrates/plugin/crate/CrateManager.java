@@ -28,6 +28,7 @@ public class CrateManager {
         crates.clear();
 
         File cratesFolder = new File(plugin.getDataFolder(), "crates");
+        File placeholdersFolder = new File(plugin.getDataFolder(), "placeholders");
 
         // Create the crates folder if it doesn't exist
         if (!cratesFolder.exists()) {
@@ -37,6 +38,17 @@ public class CrateManager {
             File exampleCrate = new File(cratesFolder, "example_crate.yml");
             if (!exampleCrate.exists()) {
                 plugin.saveResource("crates/example_crate.yml", false);
+            }
+        }
+
+        // Create the placeholders folder if it doesn't exist
+        if (!placeholdersFolder.exists()) {
+            placeholdersFolder.mkdirs();
+
+            // Copy example placeholder file
+            File examplePlaceholder = new File(placeholdersFolder, "example_crate.yml");
+            if (!examplePlaceholder.exists()) {
+                plugin.saveResource("placeholders/example_crate.yml", false);
             }
         }
 

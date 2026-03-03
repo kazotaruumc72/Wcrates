@@ -25,7 +25,7 @@ crate:
 rewards:
   placeholders:
     1:
-      between: '%wcrates_crate_1-50%'
+      between: '%wcrates_example_crate_1-50%'
       name: "&7&lCommon Reward"
       commands:
         - "give %player% iron_ingot 10"
@@ -34,7 +34,7 @@ rewards:
         - "&7You received 10 iron ingots!"
 
     2:
-      between: '%wcrates_crate_51-100%'
+      between: '%wcrates_example_crate_51-100%'
       name: "&e&lUncommon Reward"
       commands:
         - "give %player% gold_ingot 5"
@@ -44,7 +44,7 @@ rewards:
         - "&7You received 5 gold ingots and 15 iron ingots!"
 
     3:
-      between: '%wcrates_crate_101-139%'
+      between: '%wcrates_example_crate_101-139%'
       name: "&b&lRare Reward I"
       commands:
         - "give %player% diamond 3"
@@ -53,7 +53,7 @@ rewards:
         - "&7You received 3 diamonds!"
 
     4:
-      between: '%wcrates_crate_140-168%'
+      between: '%wcrates_example_crate_140-168%'
       name: "&a&lRare Reward"
       commands:
         - "give %player% diamond 5"
@@ -63,7 +63,7 @@ rewards:
         - "&7You received 5 diamonds and 3 emeralds!"
 
     5:
-      between: '%wcrates_crate_169-200%'
+      between: '%wcrates_example_crate_169-200%'
       name: "&5&lEpic Reward"
       commands:
         - "give %player% netherite_ingot 1"

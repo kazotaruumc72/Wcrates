@@ -1,0 +1,31 @@
+# Placeholder configuration for example_crate
+# This file defines the placeholders used by this crate
+
+placeholder:
+  # The crate ID this placeholder belongs to
+  crate_id: "example_crate"
+
+  # Placeholder prefix (will be %wcrates_CRATEID_value%)
+  prefix: "wcrates"
+
+  # Available placeholders for this crate
+  placeholders:
+    # %wcrates_example_crate_1-50%
+    - range: "1-50"
+      description: "Common Reward range"
+
+    # %wcrates_example_crate_51-100%
+    - range: "51-100"
+      description: "Uncommon Reward range"
+
+    # %wcrates_example_crate_101-139%
+    - range: "101-139"
+      description: "Rare Reward I range"
+
+    # %wcrates_example_crate_140-168%
+    - range: "140-168"
+      description: "Rare Reward range"
+
+    # %wcrates_example_crate_169-200%
+    - range: "169-200"
+      description: "Epic Reward range"
