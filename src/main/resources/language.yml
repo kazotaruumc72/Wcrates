@@ -1,0 +1,64 @@
+# Language configuration for Wcrates plugin
+# All text displayed in the plugin can be customized here
+
+# Menu titles and labels
+menu:
+  title: "&6&lCrate Creation Menu"
+
+  # Slot 10 - Block type selector
+  block_selector:
+    name: "&eSelect Block Type"
+    lore:
+      - "&7Click to select the block type"
+      - "&7for your crate"
+
+  # Slot 12 - Crate name
+  crate_name:
+    name: "&aCrate Name"
+    lore:
+      - "&7Click to set the crate name"
+
+  # Slot 14 - Crate ID
+  crate_id:
+    name: "&bCrate ID"
+    lore:
+      - "&7Click to set the crate identifier"
+
+  # Slot 16 - Block placement mode
+  block_placement:
+    name: "&dPlace Crate Block"
+    lore:
+      - "&7Click to enter placement mode"
+      - "&7Then right or left click a block"
+      - "&7to transform it into your crate"
+
+  # Slot 21 - Key selector (for later)
+  key_selector:
+    name: "&6Select Key"
+    lore:
+      - "&7Coming soon..."
+
+  # Slot 23 - Close button
+  close:
+    name: "&cClose Menu"
+    lore:
+      - "&7Click to close this menu"
+
+  # Slot 4 - Result display
+  result:
+    name: "&eCrate Result"
+    lore:
+      - "&7This shows your configured crate"
+
+# Block selection mode
+block_selection:
+  title: "&aSelect the block"
+  subtitle: "&7Right/Left click to select"
+  activated: "&aBlock placement mode activated!"
+  deactivated: "&cBlock placement mode deactivated"
+  success: "&aBlock transformed successfully!"
+
+# Messages
+messages:
+  no_permission: "&cYou don't have permission to use this command!"
+  reload_success: "&aConfiguration reloaded successfully!"

@@ -1,0 +1,12 @@
+name: Wcrates
+version: 1.0.0
+main: com.wcrates.plugin.WcratesPlugin
+api-version: 1.16
+author: Kazotaruu
+description: A simple crate system plugin
+
+commands:
+  wcrates:
+    description: Open the crate creation menu
+    usage: /wcrates
+    aliases: [crate, crates]
