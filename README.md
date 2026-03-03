@@ -14,10 +14,13 @@ This plugin provides a GUI-based crate creation system with animated reward scro
   - Slot 14: Crate ID selector (name tag)
   - Slot 16: Block placement mode activation
   - Slot 21: Key selector (placeholder for future implementation)
+  - Slot 22: Create crate button (generates both crate and placeholder files)
   - Slot 23: Close menu (barrier)
 - **Block selection system**: Right-click or left-click on any block to transform it into your chosen crate block
 - **Animated placeholder scrolling**: Values scroll from min to max with customizable animation
 - **Range-based rewards**: Define rewards that trigger when the placeholder lands in a specific range (e.g., 140-168)
+- **Crate-specific placeholders**: Each crate has its own unique placeholders to prevent conflicts
+- **Automatic file generation**: Create both crate config and placeholder files with a single click
 - **Fully customizable language**: All text can be modified in `language.yml`
 - **Customizable crate configurations**: Each crate has its own YAML configuration file
 
@@ -64,7 +67,7 @@ crate:
 rewards:
   placeholders:
     1:
-      between: '%wcrates_crate_140-168%'
+      between: '%wcrates_example_crate_140-168%'
       name: "&a&lRare Reward"
       commands:
         - "give %player% diamond 5"
@@ -82,18 +85,26 @@ rewards:
 - `animation.duration`: How long the animation runs (in ticks)
 - `animation.speed`: Update interval (in ticks)
 - `rewards.placeholders`: Numbered entries with placeholder-based ranges
-- `between`: Placeholder format `%wcrates_crate_MIN-MAX%` defining the value range
+- `between`: Placeholder format `%wcrates_CRATEID_MIN-MAX%` defining the value range (includes crate ID to prevent conflicts)
+
+### Placeholder Files
+
+Each crate also has a corresponding placeholder file in `plugins/Wcrates/placeholders/` that documents the available placeholders for that crate. This helps prevent conflicts between different crates by ensuring each crate has unique placeholder identifiers.
 
 ## Usage
 
 ### Creating a Crate
 
 1. Run `/wcrates` to open the crate creation menu
-2. Click on slot 14 to select the crate ID (currently defaults to "example_crate")
-3. Click on slot 16 to enter block placement mode
-4. The menu will close and show a title
-5. Right-click or left-click any block to transform it into a crate block
-6. The block will be marked with metadata linking it to the crate configuration
+2. Click on slot 12 to set the crate name (optional)
+3. Click on slot 14 to set the crate ID (required - must be unique)
+4. Click on slot 10 to select the block type (optional)
+5. Click on slot 22 "Create Crate" to generate the configuration files
+   - This creates a file in `crates/CRATEID.yml`
+   - This also creates a file in `placeholders/CRATEID.yml`
+6. Click on slot 16 to enter block placement mode
+7. Right-click or left-click any block to transform it into a crate block
+8. The block will be marked with metadata linking it to the crate configuration
 
 ### Opening a Crate
 
@@ -113,6 +124,8 @@ The plugin uses an internal placeholder system that scrolls through values:
 4. The current value is displayed to the player using the action bar or title
 5. When the animation completes, the final value determines which reward range matches
 6. The corresponding reward is given to the player
+
+**Important**: Each crate has unique placeholders that include the crate ID (e.g., `%wcrates_example_crate_140-168%`). This prevents conflicts when multiple crates are used on the same server. The crate ID ensures that placeholders from one crate won't interfere with placeholders from another crate.
 
 ## Building
 
