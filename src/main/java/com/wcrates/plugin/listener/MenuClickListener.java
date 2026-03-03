@@ -1,11 +1,13 @@
 package com.wcrates.plugin.listener;
 
 import com.wcrates.plugin.WcratesPlugin;
+import com.wcrates.plugin.gui.BlockSelectorGUI;
 import com.wcrates.plugin.gui.CrateMenuGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 /**
  * Listener for menu click events
@@ -82,10 +84,15 @@ public class MenuClickListener implements Listener {
      * Handle block type selection (slot 10)
      */
     private void handleBlockTypeSelection(Player player) {
-        // For simplicity, we'll just send a message
-        // In a full implementation, you could open a sub-menu or use chat input
-        player.sendMessage("§eBlock type selection - Click to configure");
-        player.sendMessage("§7This feature allows you to select which block type to use");
+        // Open the block selector GUI
+        BlockSelectorGUI blockSelector = new BlockSelectorGUI(plugin, player);
+
+        // Store the GUI instance in player metadata so the listener can access it
+        player.setMetadata("wcrates_block_selector", new FixedMetadataValue(plugin, blockSelector));
+
+        // Close current menu and open block selector
+        player.closeInventory();
+        blockSelector.open();
     }
 
     /**

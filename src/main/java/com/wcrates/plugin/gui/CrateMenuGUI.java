@@ -41,13 +41,17 @@ public class CrateMenuGUI {
      * Set up the menu items in their respective slots
      */
     private void setupMenu() {
+        // Get player's current config
+        CrateConfig config = getPlayerConfig(player.getUniqueId());
+
         // Slot 4: Crate result display
         inventory.setItem(4, createMenuItem(Material.CHEST,
             lang.getMessage("menu.result.name"),
             lang.getMessageList("menu.result.lore")));
 
-        // Slot 10: Block type selector (vanilla)
-        inventory.setItem(10, createMenuItem(Material.STONE,
+        // Slot 10: Block type selector - show the currently selected block
+        Material selectedBlock = config.getBlockType();
+        inventory.setItem(10, createMenuItem(selectedBlock,
             lang.getMessage("menu.block_selector.name"),
             lang.getMessageList("menu.block_selector.lore")));
 
