@@ -72,7 +72,7 @@ public class CrateConfiguration {
                 for (String key : keys) {
                     ConfigurationSection rewardSection = placeholdersSection.getConfigurationSection(key);
                     if (rewardSection != null) {
-                        rewards.add(new RewardRange(rewardSection));
+                        rewards.add(new RewardRange(rewardSection, key));
                     }
                 }
             }
@@ -213,10 +213,12 @@ public class CrateConfiguration {
         private final String name;
         private final String placeholder;
         private final String crateId;
+        private final String rewardNumber;
         private final List<String> commands;
         private final List<String> messages;
 
-        public RewardRange(ConfigurationSection section) {
+        public RewardRange(ConfigurationSection section, String rewardNumber) {
+            this.rewardNumber = rewardNumber;
             this.placeholder = section.getString("between", "");
             this.name = section.getString("name", "&7Reward");
             this.commands = section.getStringList("commands");
@@ -271,6 +273,21 @@ public class CrateConfiguration {
 
         public String getCrateId() {
             return crateId;
+        }
+
+        public String getRewardNumber() {
+            return rewardNumber;
+        }
+
+        /**
+         * Get the Nexo glyph placeholder in the format %nexo_CRATEID-CRATEID-NUMBER%
+         * Example: %nexo_example_crate-example_crate-1%
+         */
+        public String getNexoGlyph() {
+            if (crateId.isEmpty() || rewardNumber.isEmpty()) {
+                return "";
+            }
+            return "%nexo_" + crateId + "-" + crateId + "-" + rewardNumber + "%";
         }
 
         public List<String> getCommands() {
