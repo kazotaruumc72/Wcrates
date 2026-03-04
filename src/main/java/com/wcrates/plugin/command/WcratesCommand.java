@@ -45,8 +45,8 @@ public class WcratesCommand implements CommandExecutor {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("delete")) {
                 return handleDeleteCommand(player, args);
-        // Handle sub-commands
-        if (args.length > 0) {
+            }
+
             String subCommand = args[0].toLowerCase();
 
             if (subCommand.equals("key")) {
@@ -116,6 +116,11 @@ public class WcratesCommand implements CommandExecutor {
             .replace("%crate%", crateId)
             .replace("%blocks%", String.valueOf(removedBlocks));
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+
+        return true;
+    }
+
+    /**
      * Handle the /wcrate key sub-command
      */
     private boolean handleKeyCommand(Player player, String[] args) {
