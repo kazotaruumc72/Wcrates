@@ -3,6 +3,7 @@ package com.wcrates.plugin;
 import com.wcrates.plugin.command.WcratesCommand;
 import com.wcrates.plugin.crate.CrateManager;
 import com.wcrates.plugin.crate.CrateFileManager;
+import com.wcrates.plugin.crate.KeyManager;
 import com.wcrates.plugin.listener.BlockSelectionListener;
 import com.wcrates.plugin.listener.BlockSelectorListener;
 import com.wcrates.plugin.listener.MenuClickListener;
@@ -19,6 +20,7 @@ public class WcratesPlugin extends JavaPlugin {
     private LanguageManager languageManager;
     private CrateManager crateManager;
     private CrateFileManager crateFileManager;
+    private KeyManager keyManager;
 
     @Override
     public void onEnable() {
@@ -32,6 +34,9 @@ public class WcratesPlugin extends JavaPlugin {
 
         // Initialize crate file manager
         crateFileManager = new CrateFileManager(this);
+
+        // Initialize key manager
+        keyManager = new KeyManager(this);
 
         // Register command
         getCommand("wcrates").setExecutor(new WcratesCommand(this));
@@ -77,5 +82,12 @@ public class WcratesPlugin extends JavaPlugin {
      */
     public CrateFileManager getCrateFileManager() {
         return crateFileManager;
+    }
+
+    /**
+     * Get the key manager
+     */
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 }
