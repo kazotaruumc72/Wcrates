@@ -199,10 +199,16 @@ public class CrateAnimationGUI {
             }
             meta.setDisplayName(displayName);
 
-            // Add lore with value and placeholder
+            // Add lore with value, placeholder, and Nexo glyph
             List<String> lore = new ArrayList<>();
             lore.add(ChatColor.GRAY + "Value: " + ChatColor.YELLOW + value);
             lore.add(ChatColor.GRAY + "Range: " + ChatColor.AQUA + reward.getMin() + "-" + reward.getMax());
+
+            // Add Nexo glyph placeholder
+            String nexoGlyph = reward.getNexoGlyph();
+            if (!nexoGlyph.isEmpty()) {
+                lore.add(ChatColor.GRAY + "Glyph: " + ChatColor.LIGHT_PURPLE + nexoGlyph);
+            }
 
             if (highlight) {
                 lore.add("");
