@@ -75,6 +75,7 @@ crate:
   created_success: "&aSuccessfully created crate files!"
   created_error: "&cFailed to create crate files. Check console for details."
   already_exists: "&cCrate files already exist!"
+  removed: "&aCrate location removed successfully!"
 
 # Messages
 messages:

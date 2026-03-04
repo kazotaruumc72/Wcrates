@@ -1,10 +1,14 @@
 package com.wcrates.plugin.crate;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +28,11 @@ public class CrateConfiguration {
     private final int animationDuration;
     private final int animationSpeed;
     private final List<RewardRange> rewards;
+    private final List<String> coordinates;
+    private final File configFile;
 
     public CrateConfiguration(File file) {
+        this.configFile = file;
         YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         this.id = config.getString("crate.id", "unknown");
@@ -45,6 +52,15 @@ public class CrateConfiguration {
         this.maxValue = config.getInt("crate.animation.max", 200);
         this.animationDuration = config.getInt("crate.animation.duration", 100);
         this.animationSpeed = config.getInt("crate.animation.speed", 2);
+
+        // Load coordinates
+        this.coordinates = new ArrayList<>();
+        if (config.contains("crate.coordinates")) {
+            List<String> coordList = config.getStringList("crate.coordinates");
+            if (coordList != null) {
+                this.coordinates.addAll(coordList);
+            }
+        }
 
         this.rewards = new ArrayList<>();
 
@@ -93,6 +109,87 @@ public class CrateConfiguration {
 
     public List<RewardRange> getRewards() {
         return rewards;
+    }
+
+    public List<String> getCoordinates() {
+        return new ArrayList<>(coordinates);
+    }
+
+    /**
+     * Add a coordinate to the list and save to file
+     */
+    public void addCoordinate(Location location) {
+        String coordString = locationToString(location);
+        if (!coordinates.contains(coordString)) {
+            coordinates.add(coordString);
+            saveCoordinates();
+        }
+    }
+
+    /**
+     * Remove a coordinate from the list and save to file
+     */
+    public void removeCoordinate(Location location) {
+        String coordString = locationToString(location);
+        if (coordinates.remove(coordString)) {
+            saveCoordinates();
+        }
+    }
+
+    /**
+     * Check if a location is in the coordinates list
+     */
+    public boolean hasCoordinate(Location location) {
+        String coordString = locationToString(location);
+        return coordinates.contains(coordString);
+    }
+
+    /**
+     * Convert a Location to a string format: "world:x:y:z"
+     */
+    private String locationToString(Location location) {
+        return String.format("%s:%d:%d:%d",
+                location.getWorld().getName(),
+                location.getBlockX(),
+                location.getBlockY(),
+                location.getBlockZ());
+    }
+
+    /**
+     * Convert a string to a Location
+     */
+    public static Location stringToLocation(String coordString) {
+        String[] parts = coordString.split(":");
+        if (parts.length != 4) {
+            return null;
+        }
+
+        World world = Bukkit.getWorld(parts[0]);
+        if (world == null) {
+            return null;
+        }
+
+        try {
+            int x = Integer.parseInt(parts[1]);
+            int y = Integer.parseInt(parts[2]);
+            int z = Integer.parseInt(parts[3]);
+            return new Location(world, x, y, z);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Save coordinates to the YAML file
+     */
+    private void saveCoordinates() {
+        try {
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+            config.set("crate.coordinates", coordinates);
+            config.save(configFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
