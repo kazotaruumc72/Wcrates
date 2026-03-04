@@ -18,6 +18,14 @@ menu:
     lore:
       - "&7Click to set the crate name"
 
+  # Slot 13 - Display duration
+  display_duration:
+    name: "&6Display Duration"
+    lore:
+      - "&7Click to set display duration"
+      - "&7Current: 3 seconds"
+      - "&7(for placeholders display)"
+
   # Slot 14 - Crate ID
   crate_id:
     name: "&bCrate ID"

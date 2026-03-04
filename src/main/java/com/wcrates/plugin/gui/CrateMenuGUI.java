@@ -60,6 +60,11 @@ public class CrateMenuGUI {
             lang.getMessage("menu.crate_name.name"),
             lang.getMessageList("menu.crate_name.lore")));
 
+        // Slot 13: Display duration selector
+        inventory.setItem(13, createMenuItem(Material.CLOCK,
+            lang.getMessage("menu.display_duration.name"),
+            lang.getMessageList("menu.display_duration.lore")));
+
         // Slot 14: Crate ID selector
         inventory.setItem(14, createMenuItem(Material.NAME_TAG,
             lang.getMessage("menu.crate_id.name"),
@@ -136,6 +141,7 @@ public class CrateMenuGUI {
         private String crateName = "Default Crate";
         private String crateId = "default_crate";
         private boolean placementMode = false;
+        private int displayDuration = 3; // Default 3 seconds
 
         public Material getBlockType() {
             return blockType;
@@ -167,6 +173,14 @@ public class CrateMenuGUI {
 
         public void setPlacementMode(boolean placementMode) {
             this.placementMode = placementMode;
+        }
+
+        public int getDisplayDuration() {
+            return displayDuration;
+        }
+
+        public void setDisplayDuration(int displayDuration) {
+            this.displayDuration = displayDuration;
         }
     }
 }

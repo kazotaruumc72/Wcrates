@@ -11,6 +11,9 @@ crate:
   # Block type for this crate
   block: "CHEST"
 
+  # Display duration for placeholders (in seconds)
+  display_duration: 3
+
   # Coordinates where this crate can be placed
   # Multiple locations are supported
   coordinates:

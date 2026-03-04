@@ -21,10 +21,10 @@ public class CrateFileManager {
     /**
      * Create both crate configuration and placeholder files for a new crate
      */
-    public boolean createCrateFiles(String crateId, String crateName, Material blockType) {
+    public boolean createCrateFiles(String crateId, String crateName, Material blockType, int displayDuration) {
         try {
             // Create crate configuration file
-            boolean crateCreated = createCrateConfigFile(crateId, crateName, blockType);
+            boolean crateCreated = createCrateConfigFile(crateId, crateName, blockType, displayDuration);
 
             // Create placeholder configuration file
             boolean placeholderCreated = createPlaceholderFile(crateId);
@@ -43,7 +43,7 @@ public class CrateFileManager {
     /**
      * Create a crate configuration file
      */
-    private boolean createCrateConfigFile(String crateId, String crateName, Material blockType) throws IOException {
+    private boolean createCrateConfigFile(String crateId, String crateName, Material blockType, int displayDuration) throws IOException {
         File cratesFolder = new File(plugin.getDataFolder(), "crates");
         if (!cratesFolder.exists()) {
             cratesFolder.mkdirs();
@@ -65,6 +65,8 @@ public class CrateFileManager {
         content.append("  name: \"").append(crateName).append("\"\n\n");
         content.append("  # Block type for this crate\n");
         content.append("  block: \"").append(blockType.name()).append("\"\n\n");
+        content.append("  # Display duration for placeholders (in seconds)\n");
+        content.append("  display_duration: ").append(displayDuration).append("\n\n");
         content.append("  # Animation settings\n");
         content.append("  animation:\n");
         content.append("    # Duration in ticks (20 ticks = 1 second)\n");
