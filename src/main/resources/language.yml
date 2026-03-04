@@ -84,6 +84,9 @@ crate:
   created_error: "&cFailed to create crate files. Check console for details."
   already_exists: "&cCrate files already exist!"
   removed: "&aCrate location removed successfully!"
+  delete:
+    success: "&aSuccessfully deleted crate '%crate%' and removed %blocks% block(s)!"
+    not_found: "&cCrate '%crate%' not found!"
 
 # Messages
 messages:
