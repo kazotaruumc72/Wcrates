@@ -54,6 +54,8 @@ public class CrateAnimationGUI {
      * Open the GUI and start the animation
      */
     public void open() {
+        // Clear the player's inventory before opening the crate
+        player.getInventory().clear();
         player.openInventory(inventory);
         startAnimation();
     }
