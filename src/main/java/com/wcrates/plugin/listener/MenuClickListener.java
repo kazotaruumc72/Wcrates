@@ -50,6 +50,11 @@ public class MenuClickListener implements Listener {
                     handleCrateNameSelection(player);
                     break;
 
+                case 13:
+                    // Display duration selector
+                    handleDisplayDurationSelection(player);
+                    break;
+
                 case 14:
                     // Crate ID selector
                     // In a full implementation, this could open a chat-based input
@@ -104,6 +109,44 @@ public class MenuClickListener implements Listener {
     }
 
     /**
+     * Handle display duration selection (slot 13)
+     */
+    private void handleDisplayDurationSelection(Player player) {
+        CrateMenuGUI.CrateConfig config = CrateMenuGUI.getPlayerConfig(player.getUniqueId());
+
+        // Cycle through common durations: 1, 2, 3, 5, 10 seconds
+        int currentDuration = config.getDisplayDuration();
+        int newDuration;
+
+        switch (currentDuration) {
+            case 1:
+                newDuration = 2;
+                break;
+            case 2:
+                newDuration = 3;
+                break;
+            case 3:
+                newDuration = 5;
+                break;
+            case 5:
+                newDuration = 10;
+                break;
+            default:
+                newDuration = 1;
+                break;
+        }
+
+        config.setDisplayDuration(newDuration);
+        player.sendMessage("§6Display duration set to: §e" + newDuration + " seconds");
+        player.sendMessage("§7This controls how long placeholder values are displayed");
+
+        // Reopen the menu to update the display
+        player.closeInventory();
+        CrateMenuGUI gui = new CrateMenuGUI(plugin, player);
+        gui.open();
+    }
+
+    /**
      * Handle crate ID selection (slot 14)
      */
     private void handleCrateIdSelection(Player player) {
@@ -146,9 +189,10 @@ public class MenuClickListener implements Listener {
         String crateId = config.getCrateId();
         String crateName = config.getCrateName();
         org.bukkit.Material blockType = config.getBlockType();
+        int displayDuration = config.getDisplayDuration();
 
         // Create the crate files
-        boolean success = plugin.getCrateFileManager().createCrateFiles(crateId, crateName, blockType);
+        boolean success = plugin.getCrateFileManager().createCrateFiles(crateId, crateName, blockType, displayDuration);
 
         if (success) {
             player.sendMessage(plugin.getLanguageManager().getMessage("crate.created_success"));
