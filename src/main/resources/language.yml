@@ -92,3 +92,13 @@ crate:
 messages:
   no_permission: "&cYou don't have permission to use this command!"
   reload_success: "&aConfiguration reloaded successfully!"
+
+  # Key-related messages
+  key:
+    usage: "&cUsage: /wcrate key <give>"
+    give_usage: "&cUsage: /wcrate key give <player> <crate_id> [amount]"
+    give_success: "&aSuccessfully gave {amount} key(s) for crate '{crate}' to {player}!"
+    received: "&aYou received {amount} key(s) for crate '{crate}'!"
+    player_not_found: "&cPlayer '{player}' not found!"
+    crate_not_found: "&cCrate '{crate}' not found!"
+    invalid_amount: "&cInvalid amount! Please specify a positive number."
