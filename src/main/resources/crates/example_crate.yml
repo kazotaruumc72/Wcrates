@@ -11,6 +11,13 @@ crate:
   # Block type for this crate
   block: "CHEST"
 
+  # Coordinates where this crate can be placed
+  # Multiple locations are supported
+  coordinates:
+    # Example format: "world:x:y:z"
+    # - "world:100:64:200"
+    # - "world_nether:50:70:100"
+
   # Animation settings
   animation:
     # Duration in ticks (20 ticks = 1 second)

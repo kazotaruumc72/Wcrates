@@ -2,6 +2,9 @@ package com.wcrates.plugin.crate;
 
 import com.wcrates.plugin.WcratesPlugin;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import java.io.File;
 import java.util.HashMap;
@@ -69,6 +72,30 @@ public class CrateManager {
         }
 
         plugin.getLogger().info("Loaded " + crates.size() + " crate(s)");
+
+        // Restore metadata for all persisted crate locations
+        restoreCrateBlocks();
+    }
+
+    /**
+     * Restore metadata for all persisted crate block locations
+     */
+    private void restoreCrateBlocks() {
+        int restoredCount = 0;
+        for (CrateConfiguration crate : crates.values()) {
+            for (String coordString : crate.getCoordinates()) {
+                Location location = CrateConfiguration.stringToLocation(coordString);
+                if (location != null && location.getWorld() != null) {
+                    Block block = location.getBlock();
+                    // Set the metadata on the block
+                    block.setMetadata("wcrates_id", new FixedMetadataValue(plugin, crate.getId()));
+                    restoredCount++;
+                }
+            }
+        }
+        if (restoredCount > 0) {
+            plugin.getLogger().info("Restored metadata for " + restoredCount + " crate block(s)");
+        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.wcrates.plugin.listener;
 
 import com.wcrates.plugin.WcratesPlugin;
+import com.wcrates.plugin.crate.CrateConfiguration;
 import com.wcrates.plugin.gui.CrateMenuGUI;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -48,6 +49,12 @@ public class BlockSelectionListener implements Listener {
             // Set metadata to mark this as a crate block
             String crateId = config.getCrateId();
             clickedBlock.setMetadata("wcrates_id", new FixedMetadataValue(plugin, crateId));
+
+            // Save the coordinate to the crate configuration
+            CrateConfiguration crate = plugin.getCrateManager().getCrate(crateId);
+            if (crate != null) {
+                crate.addCoordinate(clickedBlock.getLocation());
+            }
 
             // Send success message
             player.sendMessage(plugin.getLanguageManager().getMessage("block_selection.success"));
